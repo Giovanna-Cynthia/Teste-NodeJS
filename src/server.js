@@ -1,11 +1,12 @@
 const express = require('express');
 const router = require('./router/router');
 const sequelize = require('./config/config');
+const User = require("./models/user");
 const app = express();
 
 //modelo da API JSON
 app.use(express.json());
-app.use('api/user', router);
+app.use('/api/user', router);
 
 //REQ -> Requisição
 //RES -> Responsee
@@ -17,21 +18,11 @@ app.get('/healthcheck', (req, res) => {
     })
 });
 
-//Listen -> ouvir (8080)
-/*app.listen(8080, () => {
-
-    sequelize
-    
-    console.log("##############");
-    console.log("Estamos online na http: 8080");
-    console.log("##############");
-
-});*/
 sequelize.authenticate()
 // Irá verificar se tem o banco de dados criado
-.then(() =>{
+.then(async () =>{
     console.log("Conexão estabelecida com sucesso");
-    return sequelize.sync();
+    await sequelize.sync();
 })
 //Caso tenha o banco de dados criado, irá rodar, se não dará erro
 .then(() => {
@@ -51,3 +42,14 @@ sequelize.authenticate()
 .catch
 try{
 }catch*/
+
+//Listen -> ouvir (8080)
+/*app.listen(8080, () => {
+
+    sequelize
+    
+    console.log("##############");
+    console.log("Estamos online na http: 8080");
+    console.log("##############");
+
+});*/
