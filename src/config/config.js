@@ -6,3 +6,5 @@ const sequelize = new Sequelize('lojalibbs', 'root', 'root', {
 });
 
 module.exports = sequelize;
+
+//Configuração do sequelize

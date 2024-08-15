@@ -1,52 +1,51 @@
-const User = require("../models/user");
+const Product = require("../models/Product");
 
-const UserController = {
+const ProductController = {
     create: async (req, res) => {
         try{
-            const {nome, senha, email} = req.body;
+            const {nome, preco, quantidade} = req.body;
 
-            const userCriado = await User.create({nome, senha, email});
-            
+            const productCriado = await Product.create({nome, preco, quantidade});
 
             return res.status(200).json({
-                msg: "Usuario criado com sucesso!",
-                user: userCriado
+                msg: "Produto criado com sucesso!",
+                user: productCriado
             })
         } catch (error) {
             console.error(error);
             return res.status(500).json({ msg: "Acione o Suporte"});
         }
     },
-    
+
     update: async (req, res) => {
         try{
-            const {id} = req.params; //usuario/aualizar/423423423
-            const {nome, senha, email} = req.body;
+            const {id} = req.params; //usuario/atualizar/423423423
+            const {nome, preco, quantidade} = req.body;
 
             console.log("Atualizando objeto");
             console.log({id});
-            console.log({nome, senha, email});
+            console.log({nome, preco, quantidade});
 
-            const userUpdate = await User.findByPk(id);
+            const productUpdate = await Product.findByPk(id);
 
-            if(userUpdate == null) {
+            if(productUpdate == null) {
                 return res.status(404).json({
-                    msg: "Usuario não encontrado"
+                    msg: "Produto não encontrado"
                 })
             }
 
-            const updated = await userUpdate.update({
-                nome, senha, email
+            const updated = await productUpdate.update({
+                nome, preco, quantidade
             });
 
             if(updated) {
                 return res.status(200).json({
-                    msg: "Usuario atualizado com sucesso!",
+                    msg: "Produto atualizado com sucesso!",
                 });
             }
 
             return res.status(500).json({
-                msg: "Erro ao atualizar usuario"
+                msg: "Erro ao atualizar produto"
             });
         } catch (error) {
             console.error(error);
@@ -56,10 +55,10 @@ const UserController = {
 
     getAll: async (req, res) => {
         try{
-            const usuarios = await User.findAll();
+            const produtos = await Product.findAll();
             return res.status(200).json({
-                msg: "Usuarios encontrados!",
-                usuarios
+                msg: "Produtos encontrados!",
+                produtos
             });
         } catch (error) {
             console.error(error);
@@ -70,18 +69,18 @@ const UserController = {
     getOne: async (req, res) => {
         const { id } = req.params;
         //PK -> primary key
-        const usuarioEncontrado = await User.findByPk(id);
+        const produtoEncontrado = await Product.findByPk(id);
 
-        if(usuarioEncontrado == null) {
+        if(produtoEncontrado == null) {
             return res.status(404).json({
-                msg: "Usuario nao encontrado!"
+                msg: "Produto nao encontrado!"
             })
         }
 
         try{
             return res.status(200).json({
-                msg: "Usuario encontrado com sucesso!",
-                usuario: usuarioEncontrado
+                msg: "Produto encontrado com sucesso!",
+                usuario: produtoEncontrado
             });
         } catch (error) {
             console.error(error);
@@ -93,19 +92,18 @@ const UserController = {
         try{
             const { id } = req.params;
 
-            const userFinded = await user.findByPk(id);
+            const productFinded = await product.findByPk(id);
 
-            if(userFinded == null) {
+            if(productFinded == null) {
                 return res.status(404).json({
-                    msg: "Usuario não encontrado"
+                    msg: "Produto não encontrado"
                 })
             }
-            //Destruindo -> Deletando
-            //As same it deleted
-            await userFinded.destroy(); 
+           
+            await productFinded.destroy(); 
 
             return res.status(200).json({
-                msg:"Usuario deletado com sucesso!"
+                msg:"Produto deletado com sucesso!"
             });
         } catch (error) {
             console.error(error);
@@ -114,4 +112,4 @@ const UserController = {
     }
 }
 
-module.exports = UserController;
+module.exports = ProductController;

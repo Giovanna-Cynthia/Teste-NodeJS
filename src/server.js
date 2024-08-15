@@ -6,7 +6,7 @@ const app = express();
 
 //modelo da API JSON
 app.use(express.json());
-app.use('/api/user', router);
+app.use('/api/', router);
 
 //REQ -> Requisição
 //RES -> Responsee
@@ -20,8 +20,10 @@ app.get('/healthcheck', (req, res) => {
 
 sequelize.authenticate()
 // Irá verificar se tem o banco de dados criado
+//Se der certo...
 .then(async () =>{
     console.log("Conexão estabelecida com sucesso");
+    //sync = sincronizar
     await sequelize.sync();
 })
 //Caso tenha o banco de dados criado, irá rodar, se não dará erro
@@ -32,6 +34,7 @@ sequelize.authenticate()
     console.log("##############");
     });
 })
+//Se der errado
 .catch((error) => {
     console.log("Erro ao se conectar com o banco: ", error);
 });
