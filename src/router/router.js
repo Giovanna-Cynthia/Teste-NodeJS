@@ -2,6 +2,7 @@ const { Router } = require("express");
 
 const UserController = require("../controller/UserController");
 const ProductController = require("../controller/ProductController");
+const CostumerController = require("../controller/CustomerController");
 const { validateUser, validateUserId } = require("../middlewares/validateUser");
 const { validateProduct, validateProductId } = require("../middlewares/ValidateProduct");
 const { validateCostumer, validateCostumertId } = require("../middlewares/ValidateCustomer");
@@ -66,23 +67,23 @@ router.get('product/:id', validateProductId, (req, res) => {
 
 /* Costumer */
 router.post('/product/', validateCostumer, (req, res) => {
-    ProductController.create(req, res)
+    CostumerController.create(req, res)
 });
 
 router.get('/product/', validateCostumer, (req, res) => {
-    ProductController.getAll(req, res)
+    CostumerController.getAll(req, res)
 });
 
 router.delete('/product/:id', validateCostumertId, (req, res) => {
-    ProductController.delete(req, res)
+    CostumerController.delete(req, res)
 });
 
 router.put('/product/:id', validateCostumer, validateCostumertId, (req, res) => {
-    ProductController.update(req, res)
+    CostumerController.update(req, res)
 });
 
 router.get('product/:id', validateCostumertId, (req, res) => {
-    ProductController.getOne(req, res)
+    CostumerController.getOne(req, res)
 });
 
 
