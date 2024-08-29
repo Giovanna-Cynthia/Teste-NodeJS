@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const CostumerController = require("../controller/CostumerController");
+const CostumerController = require("../controller/CustomerController");
+const { validateCostumer, validateCostumertId } = require("../middlewares/ValidateCustomer");
 
 const router = Router();
 

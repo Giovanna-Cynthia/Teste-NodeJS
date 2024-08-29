@@ -1,7 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const router = require('./router/router');
 const sequelize = require('./config/config');
-const User = require("./models/user");
+
+
 const app = express();
 
 //modelo da API JSON
@@ -28,7 +31,7 @@ sequelize.authenticate()
 })
 //Caso tenha o banco de dados criado, irá rodar, se não dará erro
 .then(() => {
-    app.listen(8080, () => {
+    app.listen(process.env.PORT == null ? 8080 : process.env.PORT, () => {
     console.log("##############");
     console.log("Rodando na porta 8080");
     console.log("##############");
